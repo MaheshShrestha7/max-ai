@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1240" height="980" viewBox="0 0 1240 980" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .bg { fill: #eef4ff; }
+    .card { fill: #ffffff; stroke: #173f7a; stroke-width: 2.6; rx: 26; filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.14)); }
+    .card-alt { fill: #f6faff; stroke: #5b8df0; stroke-width: 1.9; rx: 20; }
+    .title { font-family: Inter, Arial, sans-serif; fill: #0f2a4b; font-size: 32px; font-weight: 800; }
+    .subtitle { font-family: Inter, Arial, sans-serif; fill: #344562; font-size: 16px; }
+    .node-title { font-family: Inter, Arial, sans-serif; fill: #102345; font-size: 18px; font-weight: 700; }
+    .node-text { font-family: Inter, Arial, sans-serif; fill: #2c4a72; font-size: 13px; }
+    .view-text { font-family: Inter, Arial, sans-serif; fill: #1f4fa5; font-size: 12px; }
+    .connector { stroke: #1f4fa5; stroke-width: 3.6; marker-end: url(#arrowhead); }
+    .boundary { fill: none; stroke: #1f4fa5; stroke-width: 3; stroke-dasharray: 12 8; rx: 26; }
+    .footer { font-family: Inter, Arial, sans-serif; fill: #1e3f72; font-size: 13px; }
+    .label { font-family: Inter, Arial, sans-serif; fill: #173f7a; font-size: 11px; }
+    .icon-ring { fill: none; stroke: #1f4fa5; stroke-width: 2.6; }
+    .icon-dot { fill: #1f4fa5; }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1f4fa5" />
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1240" height="980" />
+  <text class="title" x="620" y="50" text-anchor="middle">max-ai Architecture Diagram</text>
+  <text class="subtitle" x="560" y="78" text-anchor="middle">Technical flow of prompt intake, Gemini tooling, function routing, and workspace sandboxing.</text>
+
+  <rect class="card" x="90" y="130" width="360" height="220" />
+  <circle class="icon-ring" cx="150" cy="170" r="24" />
+  <circle class="icon-dot" cx="150" cy="170" r="6" />
+  <text class="node-title" x="180" y="220" text-anchor="start">Prompt Source</text>
+  <text class="node-text" x="180" y="245" text-anchor="start">User input arrives at `main.py`.</text>
+  <text class="node-text" x="180" y="265" text-anchor="start">System instructions and tool schema are attached.</text>
+
+  <rect class="card" x="470" y="130" width="360" height="220" />
+  <circle class="icon-ring" cx="530" cy="170" r="24" />
+  <circle class="icon-dot" cx="530" cy="170" r="6" />
+  <text class="node-title" x="560" y="220" text-anchor="start">AI Controller</text>
+  <text class="node-text" x="560" y="245" text-anchor="start">`main.py` forwards the prompt to Gemini.</text>
+  <text class="node-text" x="560" y="265" text-anchor="start">Receives either direct text or a function call.</text>
+
+  <rect class="card" x="850" y="130" width="360" height="220" />
+  <circle class="icon-ring" cx="910" cy="170" r="24" />
+  <circle class="icon-dot" cx="910" cy="170" r="6" />
+  <text class="node-title" x="940" y="220" text-anchor="start">Gemini Model</text>
+  <text class="node-text" x="940" y="245" text-anchor="start">Decides whether to answer or call a tool.</text>
+  <text class="node-text" x="940" y="265" text-anchor="start">Function call payload includes tool name and args.</text>
+
+  <path class="connector" d="M450 220 L470 220" />
+  <path class="connector" d="M810 220 L830 220" />
+
+  <rect class="card-alt" x="90" y="380" width="380" height="260" />
+  <text class="node-title" x="120" y="430" text-anchor="start">Function Router</text>
+  <text class="node-text" x="120" y="460" text-anchor="start">`call_function.py` parses Gemini tool calls.</text>
+  <text class="node-text" x="120" y="485" text-anchor="start">Validates tool name, args, and workspace path.</text>
+  <text class="node-text" x="120" y="510" text-anchor="start">Dispatches execution to the appropriate helper.</text>
+
+  <rect class="card-alt" x="470" y="380" width="360" height="260" />
+  <text class="node-title" x="500" y="430" text-anchor="start">Safe Helpers</text>
+  <text class="view-text" x="500" y="465" text-anchor="start">functions/ exposed to Gemini</text>
+  <text class="label" x="500" y="490" text-anchor="start">• `get_files_info(directory)`</text>
+  <text class="label" x="500" y="515" text-anchor="start">• `get_file_content(file_path)`</text>
+  <text class="label" x="500" y="540" text-anchor="start">• `write_file(file_path, content)`</text>
+  <text class="label" x="500" y="565" text-anchor="start">• `run_python_file(file_path, args)`</text>
+
+  <rect class="card-alt" x="850" y="380" width="360" height="260" />
+  <text class="node-title" x="880" y="430" text-anchor="start">Calculator App</text>
+  <text class="node-text" x="880" y="465" text-anchor="start">Runs expressions and renders JSON output.</text>
+  <text class="label" x="880" y="490" text-anchor="start">• `calculator/main.py`</text>
+  <text class="label" x="880" y="515" text-anchor="start">• `pkg/calculator.py`</text>
+  <text class="label" x="880" y="540" text-anchor="start">• `pkg/render.py`</text>
+  <text class="label" x="880" y="565" text-anchor="start">• `calculator/tests.py`</text>
+
+  <path class="connector" d="M280 350 L280 380" />
+  <path class="connector" d="M650 350 L650 380" />
+  <path class="connector" d="M1030 350 L1030 380" />
+  <path class="connector" d="M310 700 L470 700" />
+  <path class="connector" d="M690 700 L850 700" />
+
+  <rect class="boundary" x="90" y="740" width="1120" height="180" />
+  <text class="footer" x="560" y="780" text-anchor="middle">Workspace sandbox: all file I/O and Python execution remain inside the local project directory.</text>
+  <text class="footer" x="560" y="805" text-anchor="middle">Gemini uses declared tools only, preventing external system access.</text>
+  <text class="footer" x="560" y="830" text-anchor="middle">Flow: User → main.py → Gemini → call_function.py → functions/ → calculator/</text>
+</svg>

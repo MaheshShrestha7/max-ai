@@ -15,7 +15,7 @@ The root app (`main.py`) is designed to accept a plain-language prompt, then use
   - `run_python_file` - execute a Python file with optional CLI arguments.
 - `calculator/` - a small calculator app and tests.
 
-![Project Architecture](https://via.placeholder.com/900x320?text=max-ai+Architecture)
+![Project Architecture](architecture.svg)
 
 ## Key features
 
